@@ -1,6 +1,10 @@
 /* Start Global */
 @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
 
+:root {
+    --duration: 0.3s;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -17,6 +21,11 @@ body {
 
 ul {
     list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .container {
@@ -46,7 +55,7 @@ ul {
 /* Start Header */
 header {
     padding: 10px 0;
-    background-color: #b6b6b6;
+    background-color: #d9d9d9;
 }
 
 header .container {
@@ -64,5 +73,69 @@ header ul {
 
 header ul li {
     cursor: pointer;
+    font-size: 18px;
+    transition-duration: var(--duration);
+}
+
+header ul li:hover {
+    color: #20578d;
 }
 /* End Header */
+
+/* Start Post */
+.posts {
+    padding: 50px 0;
+}
+
+.posts .container {
+}
+
+.posts .post {
+    color: #333333;
+    margin: 15px 0;
+    padding: 20px;
+    box-shadow: 0 0 10px #ddd;
+    border-radius: 5px;
+    position: relative;
+}
+
+.post .author {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.post .title {
+    color: #000;
+    font-weight: bold;
+    display: block;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.post .bottom-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.post .bottom-section .date {}
+
+.post .bottom-section .comments {
+    user-select: none;
+    cursor: pointer;
+}
+
+.post .type {
+    background-color: #20578d;
+    display: inline-block;
+    padding: 2px 15px 5px;
+    border-radius: 2px;
+    color: white;
+    right: 10px;
+    top: 10px;
+    position: absolute;
+    font-style: italic;
+    text-transform: capitalize;
+}
+/* End Post */
