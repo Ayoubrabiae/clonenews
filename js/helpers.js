@@ -9,7 +9,6 @@ export const getPosts = async(start, amount, posts) => {
         }
         addPost(posts[i], parent)
     }
-    console.log(posts.length === new Set(posts.map(e => e.id)).size)
 }
 
 export const throttle = (func, delay = 300) => {
@@ -29,8 +28,7 @@ export const throttle = (func, delay = 300) => {
 export const loadMore = throttle(async(posts) => {
     const amount = 3
     start[0] += amount
-        console.log("Here")
-        getPosts(start[0], amount, posts)
+    getPosts(start[0], amount, posts)
 }, 1000)
 
 export const clearAll = () => {

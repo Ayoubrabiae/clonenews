@@ -87,9 +87,6 @@ header ul li:hover {
     padding: 50px 0;
 }
 
-.posts .container {
-}
-
 .post {
     color: #333333;
     margin: 15px 0;
@@ -137,7 +134,6 @@ header ul li:hover {
     justify-content: space-between;
 }
 
-.post .bottom-section .date {}
 
 .post .bottom-section .comments {
     user-select: none;
