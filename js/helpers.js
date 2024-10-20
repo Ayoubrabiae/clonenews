@@ -30,7 +30,7 @@ export const loadMore = throttle(async(posts) => {
     const amount = 3
     start[0] += amount
         console.log("Here")
-        await getPosts(start[0], amount, posts)
+        getPosts(start[0], amount, posts)
 }, 1000)
 
 export const clearAll = () => {
