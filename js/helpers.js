@@ -1,9 +1,12 @@
 import { addPost } from "./build.js"
-import { posts, start } from "./main.js"
+import { fetchItems } from "./fetch.js"
+import { from, maxId, posts, start } from "./main.js"
 
-export const getPosts = async(start) => {
-    for (let i = start; i < 10+start; i++) {
-        //console.log(await fetchItem(ids[i]))
+export const getPosts = async(start, amount) => {
+    for (let i = start; i < amount+start; i++) {
+        if (!posts[i]) {
+            await fetchItems(maxId-from[0], start, amount)
+        }
         addPost(posts[i])
     }
 }
@@ -27,6 +30,7 @@ export const throttle = (func, delay = 300) => {
 // }, 1000, {trailing:true})
 
 export const loadMore = throttle(() => {
-    start[0] += 10
-    getPosts(start[0])
+    const amount = 3
+    start[0] += amount
+    getPosts(start[0], amount)
 }, 500)

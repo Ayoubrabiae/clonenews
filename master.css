@@ -113,6 +113,24 @@ header ul li:hover {
     margin-bottom: 10px;
 }
 
+.post .text-content {
+    font-size: 18px;
+    margin: 20px 0;
+    max-height: 200px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post.show .text-content {
+    max-height: unset;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+    text-overflow: unset;
+}
+
 .post .bottom-section {
     display: flex;
     align-items: center;

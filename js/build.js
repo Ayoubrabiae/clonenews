@@ -1,12 +1,22 @@
+const showMore = (item) => {
+    item.classList.toggle("show")
+}
+
 export const addPost = (post) => {
+    if (!post.url && !post.title && !post.text) {
+        return
+    }
+
     const parent = document.querySelector(".posts .container")
 
     const postEl = document.createElement("div")
     postEl.classList.add("post")
 
     const title = document.createElement("a")
-    title.href = post.url
-    title.target = "_blank"
+    if (post.url) {
+        title.href = post.url
+        title.target = "_blank"
+    }
     title.classList.add("title")
     title.textContent = post.title
     postEl.append(title)
@@ -15,6 +25,16 @@ export const addPost = (post) => {
     author.classList.add("author")
     author.textContent = post.by
     postEl.prepend(author)
+
+    if (post.text) {
+        const content = document.createElement("div")
+        content.classList.add("text-content")
+        content.innerHTML = post.text
+        if (post.url) {
+            content.title = "click on title to read more"
+        }
+        postEl.append(content)
+    }
 
     const bottomSection = document.createElement("div")
     bottomSection.classList.add("bottom-section")
@@ -41,4 +61,5 @@ export const addPost = (post) => {
     postEl.append(type)
 
     parent.append(postEl)
+    postEl.addEventListener("click", (e) => showMore(e.currentTarget))
 }

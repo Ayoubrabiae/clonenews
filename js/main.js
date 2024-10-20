@@ -5,11 +5,11 @@ export let maxId = await fetchData("https://hacker-news.firebaseio.com/v0/maxite
 export let posts = []
 export let comments = []
 export let start = [0]
+export let from = [0]
+const postsAmount = 5
 
-await fetchItems(maxId)
-console.log(posts)
-console.log(comments)
-getPosts(start[0])
+await fetchItems(maxId, from[0], postsAmount)
+getPosts(start[0], postsAmount)
 
 
 // Infinite scroll
