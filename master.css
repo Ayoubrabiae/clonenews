@@ -139,3 +139,20 @@ header ul li:hover {
     text-transform: capitalize;
 }
 /* End Post */
+
+/* Start Load More buttons */
+.load-more {
+    display: block;
+    margin: 20px auto;
+    font-family: inherit;
+    font-weight: bold;
+    color: #000000;
+    background-color: #fff;
+    border: none;
+    padding: 7px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 4px #a9a9a9;
+    font-size: 17px;
+    cursor: pointer;
+}
+/* End Load More buttons */
