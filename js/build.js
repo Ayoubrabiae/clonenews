@@ -2,12 +2,10 @@ const showMore = (item) => {
     item.classList.toggle("show")
 }
 
-export const addPost = (post) => {
+export const addPost = (post, parent) => {
     if (!post.url && !post.title && !post.text) {
         return
     }
-
-    const parent = document.querySelector(".posts .container")
 
     const postEl = document.createElement("div")
     postEl.classList.add("post")
@@ -39,13 +37,17 @@ export const addPost = (post) => {
     const bottomSection = document.createElement("div")
     bottomSection.classList.add("bottom-section")
 
-    const comments = document.createElement("span")
-    comments.classList.add("comments")
-    comments.textContent = "Comments: "+ (post.kids ? post.kids.length : 0)
-    if (!post.kids) {
-        comments.title = "No Comments"
-    }    
-    bottomSection.append(comments)
+    if (post.type != "comment") {
+        const comments = document.createElement("span")
+        comments.classList.add("comments")
+        comments.textContent = "Comments: "+ (post.kids ? post.kids.length : 0)
+        if (!post.kids) {
+            comments.title = "No Comments"
+        } else {
+            comments.addEventListener("click", () =>  open(`post.html?q=${post.id}`, "_parent"))
+        }
+        bottomSection.append(comments)
+    }
 
     const date = document.createElement("span")
     date.classList.add("date")
@@ -57,8 +59,19 @@ export const addPost = (post) => {
     const type = document.createElement("span")
     type.textContent = post.type
     type.classList.add("type")
-    type.style.background = ({story:"#5bad00", poll:"blue", comment: "green", job:"crimson"})[post.type] || "black"
+    type.style.background = ({story:"#5bad00", poll:"blue", comment: "brown", job:"crimson"})[post.type] || "black"
     postEl.append(type)
+
+    if (post.type === "comment") {
+        const parent = document.createElement("p")
+        parent.classList.add("parent")
+        parent.textContent = "Parent"
+        parent.dataset.parentId = post.parent
+        parent.style.cursor = "pointer"
+        parent.title = "Click to see this comment parent"
+        parent.addEventListener("click", () => open(`post.html?q=${post.parent}`, "_parent"))
+        postEl.prepend(parent)
+    }
 
     parent.append(postEl)
     postEl.addEventListener("click", (e) => showMore(e.currentTarget))

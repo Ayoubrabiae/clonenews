@@ -9,10 +9,11 @@ export const fetchData = async(url) => {
 
 const fetchMultiple = async(id, amount) => {
     let min = 0
-    const urls = []
+    const urls = [] 
     Array(amount).fill(id).map(() => {
-        urls.push(fetch(`https://hacker-news.firebaseio.com/v0/item/${id-min}.json`))
+        const item = fetch(`https://hacker-news.firebaseio.com/v0/item/${id-min}.json`)
         min++
+        urls.push(item)
     })
 
     const res = await Promise.all(urls)
@@ -29,19 +30,18 @@ const fetchMultiple = async(id, amount) => {
 export const fetchItems = async(id, start, amount) => {
     const postsCount = amount
     while(posts.length < postsCount+start || comments.length < postsCount+start) {
-        const items = await fetchMultiple(id, 10)
+        const items = await fetchMultiple(id, 5)
         items.forEach(async item => {
             from[0]++
+            id-=1
             if (item.deleted || item.dead) {
                 return
             }
-            //console.log(item)
             if (item.type === "comment") {
                 comments.push(item)
             } else {
                 posts.push(item)
             }
         })
-        id-=10
     }
 }

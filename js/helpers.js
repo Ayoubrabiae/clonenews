@@ -1,14 +1,15 @@
 import { addPost } from "./build.js"
 import { fetchItems } from "./fetch.js"
-import { from, maxId, posts, start } from "./main.js"
+import { from, maxId, parent, start } from "./main.js"
 
-export const getPosts = async(start, amount) => {
+export const getPosts = async(start, amount, posts) => {
     for (let i = start; i < amount+start; i++) {
         if (!posts[i]) {
             await fetchItems(maxId-from[0], start, amount)
         }
-        addPost(posts[i])
+        addPost(posts[i], parent)
     }
+    console.log(posts.length === new Set(posts.map(e => e.id)).size)
 }
 
 export const throttle = (func, delay = 300) => {
@@ -16,21 +17,23 @@ export const throttle = (func, delay = 300) => {
     return (...args) => {
         if (shouldWait) return
         
-        shouldWait = true
         func(...args)
+        shouldWait = true
+
         setTimeout(() => {
             shouldWait = false
         }, delay)
     }
 }
 
-// const [def, thr] = document.querySelectorAll("h1")
-// const updateText = opThrottle((text) => {
-//     thr.textContent = `Throttle: ${text}`
-// }, 1000, {trailing:true})
-
-export const loadMore = throttle(() => {
+export const loadMore = throttle(async(posts) => {
     const amount = 3
     start[0] += amount
-    getPosts(start[0], amount)
-}, 500)
+        console.log("Here")
+        await getPosts(start[0], amount, posts)
+}, 1000)
+
+export const clearAll = () => {
+    const parent = document.querySelector(".posts .container")
+    parent.innerHTML = ""
+}
